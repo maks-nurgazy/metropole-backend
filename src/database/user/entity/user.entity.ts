@@ -1,10 +1,18 @@
-import { BaseEntity, Column, Entity, JoinColumn, PrimaryGeneratedColumn , OneToMany, OneToOne } from "typeorm";
-import { CartEntity } from "../../cart/entity/cart.entity";
-import { UserInfoEntity } from "../../userinfo/entity/userinfo.entity";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
+import { CartEntity } from '../../cart/entity/cart.entity';
+import { UserInfoEntity } from '../../userinfo/entity/userinfo.entity';
 
-@Entity("users")
+@Entity('users')
 export class UserEntity extends BaseEntity {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn('increment')
   id!: string;
 
   @Column({
@@ -25,12 +33,16 @@ export class UserEntity extends BaseEntity {
   })
   userpassword!: string;
 
-  @OneToMany(() => CartEntity,(cart) => cart.user)
+  @Column({
+    nullable: true,
+    unique: false,
+  })
+  balance!: number;
+
+  @OneToMany(() => CartEntity, (cart) => cart.user)
   @JoinColumn()
-  item! : CartEntity[];
+  item!: CartEntity[];
 
-  @OneToOne(() => UserInfoEntity,(info) => info.user)
-  info! : UserInfoEntity
-
+  @OneToOne(() => UserInfoEntity, (info) => info.user)
+  info!: UserInfoEntity;
 }
-

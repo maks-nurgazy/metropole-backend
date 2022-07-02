@@ -8,6 +8,7 @@ import { authRouter } from './routes/user/auth.routes';
 import { productRouter } from './routes/products/products.routes';
 import { cartRouter } from './routes/cart/cart.routes';
 import { userInfoRouter } from './routes/userInfo/userInfo.routes';
+import { balanceRouter } from './routes/balance/balance.router';
 
 dotenv.config();
 const app = express();
@@ -34,6 +35,9 @@ createConnection(connectionOptions)
 
     //? Product
     app.use('/product', productRouter);
+
+    //? balance
+    app.use('/balance', balanceRouter);
 
     //? Cart
     app.use('/cart', cartRouter);

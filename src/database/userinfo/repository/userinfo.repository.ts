@@ -7,7 +7,7 @@ import { UserRepository } from "../../user/repository/user.repository";
 dotenv.config();
 @EntityRepository(UserInfoEntity)
 export class UserInfoRepository extends Repository<UserInfoEntity> {
-  
+
   // ? Add User Info OR IF Exits Update Data
   async addUserInfo(req: Request, res: Response) {
 
@@ -24,15 +24,15 @@ export class UserInfoRepository extends Repository<UserInfoEntity> {
         .where("info.userId = :id", { id: user!.id })
         .getOne();
 
-        if (userInfoData === undefined) { 
+        if (userInfoData === undefined) {
 
           let userInfo = new UserInfoEntity();
           userInfo.user_address = user_address;
           userInfo.user_phone_no = user_phone_no;
           userInfo.user = user!;
-  
+
           await userInfo.save();
-  
+
           return res.send({
             added: true,
             updated: true,
@@ -66,7 +66,7 @@ export class UserInfoRepository extends Repository<UserInfoEntity> {
           });
         }
 
-      } 
+      }
       else {
         return res.send({
           added: false,
