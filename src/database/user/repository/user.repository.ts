@@ -21,6 +21,7 @@ export class UserRepository extends Repository<UserEntity> {
   // ? Update balance
   async updateBalance(req: Request, res: Response) {
     let { useremail, balance } = req.body;
+    console.log(req.body);
 
     let userRepo = getCustomRepository(UserRepository);
     let user = await userRepo.findOne({ useremail: useremail });
@@ -38,7 +39,7 @@ export class UserRepository extends Repository<UserEntity> {
       .set({
         balance: balance,
       })
-      .where('userId = :id', { id: user!.id })
+      .where('id = :id', { id: user!.id })
       .execute()
       .then((updatedData: any) => {
         return res.send({
@@ -48,6 +49,7 @@ export class UserRepository extends Repository<UserEntity> {
         });
       })
       .catch((error: any) => {
+        console.log(error);
         return res.send({
           added: false,
           updated: false,
